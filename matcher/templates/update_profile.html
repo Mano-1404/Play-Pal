@@ -1,0 +1,141 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="card shadow-lg">
+                <div class="card-body p-4 p-md-5">
+                    <h2 class="card-title text-center mb-4">Update Your Profile</h2>
+                    
+                    <form method="POST" enctype="multipart/form-data" class="profile-form">
+                        {% csrf_token %}
+                        
+                        <div class="mb-4 text-center">
+                            <div class="current-profile-pic mb-3">
+                                <img src="{{ request.user.profile.profile_pic.url }}" alt="Current profile picture" 
+                                     class="rounded-circle" style="width: 120px; height: 120px; object-fit: cover; border: 3px solid #4CAF50;">
+                            </div>
+                            <label for="{{ form.profile_pic.id_for_label }}" class="form-label d-block text-white">Change Profile Picture</label>
+                            {{ form.profile_pic }}
+                            {% if form.profile_pic.errors %}
+                            <div class="text-danger mt-1">{{ form.profile_pic.errors }}</div>
+                            {% endif %}
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="{{ form.bio.id_for_label }}" class="form-label text-white">About You</label>
+                            {{ form.bio }}
+                            {% if form.bio.errors %}
+                            <div class="text-danger mt-1">{{ form.bio.errors }}</div>
+                            {% endif %}
+                            <div class="form-text text-light">Share a bit about yourself, your sports interests, and availability.</div>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="{{ form.location.id_for_label }}" class="form-label text-white">Your Location</label>
+                            {{ form.location }}
+                            {% if form.location.errors %}
+                            <div class="text-danger mt-1">{{ form.location.errors }}</div>
+                            {% endif %}
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="{{ form.skill_level.id_for_label }}" class="form-label text-white">Skill Level</label>
+                            {{ form.skill_level }}
+                            {% if form.skill_level.errors %}
+                            <div class="text-danger mt-1">{{ form.skill_level.errors }}</div>
+                            {% endif %}
+                        </div>
+                        
+                        <div class="mb-4">
+                            <label class="form-label text-white">Select Your Favorite Sports</label>
+                            <div class="sport-choices">
+                                {{ form.favorite_sports }}
+                            </div>
+                            {% if form.favorite_sports.errors %}
+                            <div class="text-danger mt-1">{{ form.favorite_sports.errors }}</div>
+                            {% endif %}
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary btn-lg w-100">Save Profile</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .profile-form input[type="text"],
+    .profile-form textarea,
+    .profile-form select {
+        background-color: #2c2c2c !important;
+        color: white !important;
+        border: 1px solid #3a3a3a !important;
+        border-radius: 8px !important;
+        padding: 12px 15px !important;
+    }
+    
+    .profile-form .form-text {
+        color: #b0b0b0 !important;
+    }
+    
+    .sport-choices {
+        background-color: #2c2c2c;
+        border-radius: 8px;
+        padding: 15px;
+        border: 1px solid #3a3a3a;
+    }
+    
+    .sport-choices ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+        gap: 10px;
+    }
+    
+    .sport-choices li {
+        margin-bottom: 5px;
+    }
+    
+    .sport-choices label {
+        display: flex;
+        align-items: center;
+        color: white;
+        cursor: pointer;
+        padding: 6px 10px;
+        border-radius: 5px;
+        transition: background-color 0.2s;
+    }
+    
+    .sport-choices label:hover {
+        background-color: rgba(76, 175, 80, 0.1);
+    }
+    
+    .sport-choices input[type="checkbox"] {
+        margin-right: 8px;
+        accent-color: #4CAF50;
+    }
+    
+    input[type="file"] {
+        background-color: transparent !important;
+        padding: 8px 0 !important;
+        color: #b0b0b0 !important;
+        border: none !important;
+        width: auto;
+        margin: 0 auto;
+    }
+    
+    .card-title {
+        color: #ffffff;
+        font-weight: 600;
+    }
+    
+    .form-label {
+        font-weight: 500;
+        margin-bottom: 8px;
+    }
+</style>
+{% endblock %}

@@ -1,0 +1,106 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="card shadow-lg">
+                <div class="card-body p-4 p-md-5">
+                    <h2 class="card-title text-center mb-4">Create a Game</h2>
+                    
+                    <form method="POST" class="game-form">
+                        {% csrf_token %}
+                        
+                        <div class="mb-3">
+                            <label for="{{ form.name.id_for_label }}" class="form-label text-white">Game Name</label>
+                            {{ form.name }}
+                            {% if form.name.errors %}
+                            <div class="text-danger mt-1">{{ form.name.errors }}</div>
+                            {% endif %}
+                            <div class="form-text text-light">Give your game a descriptive name</div>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="{{ form.sport_type.id_for_label }}" class="form-label text-white">Sport Type</label>
+                            {{ form.sport_type }}
+                            {% if form.sport_type.errors %}
+                            <div class="text-danger mt-1">{{ form.sport_type.errors }}</div>
+                            {% endif %}
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="{{ form.location.id_for_label }}" class="form-label text-white">Location</label>
+                            {{ form.location }}
+                            {% if form.location.errors %}
+                            <div class="text-danger mt-1">{{ form.location.errors }}</div>
+                            {% endif %}
+                            <div class="form-text text-light">Enter the address or name of the venue</div>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="{{ form.time.id_for_label }}" class="form-label text-white">Date & Time</label>
+                            {{ form.time }}
+                            {% if form.time.errors %}
+                            <div class="text-danger mt-1">{{ form.time.errors }}</div>
+                            {% endif %}
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="{{ form.max_players.id_for_label }}" class="form-label text-white">Maximum Players</label>
+                            {{ form.max_players }}
+                            {% if form.max_players.errors %}
+                            <div class="text-danger mt-1">{{ form.max_players.errors }}</div>
+                            {% endif %}
+                        </div>
+                        
+                        <div class="mb-4">
+                            <label for="{{ form.description.id_for_label }}" class="form-label text-white">Description</label>
+                            {{ form.description }}
+                            {% if form.description.errors %}
+                            <div class="text-danger mt-1">{{ form.description.errors }}</div>
+                            {% endif %}
+                            <div class="form-text text-light">Add any details about skill level, equipment needed, etc.</div>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-success btn-lg w-100">Create Game</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .game-form input[type="text"],
+    .game-form input[type="number"],
+    .game-form input[type="datetime-local"],
+    .game-form textarea,
+    .game-form select {
+        background-color: #2c2c2c !important;
+        color: white !important;
+        border: 1px solid #3a3a3a !important;
+        border-radius: 8px !important;
+        padding: 12px 15px !important;
+    }
+    
+    .game-form .form-text {
+        color: #b0b0b0 !important;
+    }
+    
+    /* Fix for date/time input color */
+    input[type="datetime-local"]::-webkit-calendar-picker-indicator {
+        filter: invert(1);
+    }
+    
+    .btn-success {
+        background-color: #4CAF50;
+        border-color: #4CAF50;
+    }
+    
+    .btn-success:hover {
+        background-color: #3e8e41;
+        border-color: #3e8e41;
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(76, 175, 80, 0.4);
+    }
+</style>
+{% endblock %}

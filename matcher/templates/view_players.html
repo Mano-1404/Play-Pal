@@ -1,0 +1,174 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container py-5">
+    <h2 class="text-center mb-5 display-5">Find Players Near You</h2>
+    
+    <div class="row g-4">
+        {% for player in players %}
+        <div class="col-md-6 col-lg-4">
+            <div class="card player-card h-100">
+                <div class="card-body text-center p-4">
+                    <div class="profile-pic-container">
+                        <img src="{{ player.profile_pic.url }}" class="profile-pic" alt="{{ player.user.username }}'s profile">
+                    </div>
+                    
+                    <h4 class="card-title mb-2">{{ player.user.username }}</h4>
+                    
+                    {% if player.favorite_sports %}
+                    <div class="sports-tags mb-3">
+                        {% for sport in player.favorite_sports %}
+                        <span class="sport-tag">{{ sport }}</span>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+                    
+                    <p class="card-text bio-text">{{ player.bio }}</p>
+                    
+                    <div class="player-stats">
+                        <div class="stat-item">
+                            <span class="stat-label">Skill Level:</span>
+                            <span class="stat-value">{{ player.skill_level }}</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">Location:</span>
+                            <span class="stat-value">{{ player.location }}</span>
+                        </div>
+                    </div>
+                    
+                    <a href="#" class="btn btn-primary mt-3">Connect</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    
+    {% if not players %}
+    <div class="text-center py-5">
+        <h4 class="text-muted">No players found in your area yet</h4>
+        <p>Be the first to update your profile and start connecting!</p>
+    </div>
+    {% endif %}
+</div>
+
+<style>
+    /* Player card specific styling */
+    .player-card {
+        border-radius: 15px;
+        overflow: hidden;
+        background-color: #1e1e1e;
+        border: none;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    
+    .player-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+    }
+    
+    .profile-pic-container {
+        width: 120px;
+        height: 120px;
+        border-radius: 50%;
+        overflow: hidden;
+        margin: 0 auto 20px;
+        border: 3px solid #4CAF50;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    }
+    
+    .profile-pic {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+    
+    .card-title {
+        color: #ffffff;
+        font-weight: 600;
+        font-size: 1.5rem;
+        margin-bottom: 15px;
+    }
+    
+    .bio-text {
+        color: #e0e0e0;
+        font-size: 0.95rem;
+        line-height: 1.6;
+        margin-bottom: 20px;
+    }
+    
+    .sports-tags {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 8px;
+        margin-bottom: 15px;
+    }
+    
+    .sport-tag {
+        background-color: rgba(76, 175, 80, 0.2);
+        color: #7deb82;
+        padding: 5px 12px;
+        border-radius: 20px;
+        font-size: 0.85rem;
+        font-weight: 500;
+        display: inline-block;
+        border: 1px solid rgba(76, 175, 80, 0.3);
+    }
+    
+    .player-stats {
+        background-color: rgba(0, 0, 0, 0.2);
+        border-radius: 10px;
+        padding: 12px;
+        margin-bottom: 15px;
+    }
+    
+    .stat-item {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 5px;
+    }
+    
+    .stat-label {
+        color: #b0b0b0;
+        font-weight: 500;
+    }
+    
+    .stat-value {
+        color: #ffffff;
+        font-weight: 600;
+    }
+    
+    .btn-primary {
+        background-color: #4CAF50;
+        border-color: #4CAF50;
+        width: 100%;
+        padding: 10px;
+        font-weight: 600;
+        transition: all 0.3s ease;
+    }
+    
+    .btn-primary:hover {
+        background-color: #3e8e41;
+        border-color: #3e8e41;
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(76, 175, 80, 0.4);
+    }
+    
+    .display-5 {
+        color: #ffffff;
+        font-weight: 700;
+        margin-bottom: 30px;
+        position: relative;
+        display: inline-block;
+    }
+    
+    .display-5:after {
+        content: '';
+        display: block;
+        width: 80px;
+        height: 3px;
+        background: #4CAF50;
+        margin: 15px auto 0;
+    }
+</style>
+{% endblock %}
