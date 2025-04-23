@@ -45,6 +45,7 @@ def add_sport(request):
 
 @login_required
 def home(request):
+    # Get upcoming games ordered by time
     games = Game.objects.filter(time__gte=timezone.now()).order_by('time')
     return render(request, 'home.html', {'games': games})
 
